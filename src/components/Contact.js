@@ -1,27 +1,36 @@
 /* eslint-disable no-useless-escape */
-import React, { useRef } from 'react'
+import React, { useRef } from "react"
 // motion
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion"
 // variants
-import { fadeIn } from '../variants'
-import emailjs from '@emailjs/browser'
-import { Toaster, toast } from 'react-hot-toast'
+import { fadeIn } from "../variants"
+import emailjs from "@emailjs/browser"
+import { Toaster, toast } from "react-hot-toast"
+import ReCAPTCHA from "react-google-recaptcha"
 
 const Contact = () => {
   const form = useRef()
+  const captchaRef = useRef(null)
   const sendEmail = (e) => {
     e.preventDefault()
 
-    emailjs.sendForm('service_svbf61q', 'template_otgwguj', form.current, 'Ycnjb5BXquDvHvi6l').then(
-      (result) => {
-        toast.success('Отправлено успешно!', {
-          duration: 2000,
-        })
-      },
-      (error) => {
-        console.log(error.text)
-      },
-    )
+    emailjs
+      .sendForm(
+        "service_svbf61q",
+        "template_otgwguj",
+        form.current,
+        "Ycnjb5BXquDvHvi6l"
+      )
+      .then(
+        (result) => {
+          toast.success("Отправлено успешно!", {
+            duration: 2000,
+          })
+        },
+        (error) => {
+          console.log(error.text)
+        }
+      )
   }
 
   return (
@@ -31,9 +40,9 @@ const Contact = () => {
           <div className="flex flex-col lg:flex-row">
             {/* text */}
             <motion.div
-              variants={fadeIn('right', 0.3)}
+              variants={fadeIn("right", 0.3)}
               initial="hidden"
-              whileInView={'show'}
+              whileInView={"show"}
               viewport={{ once: false, amount: 0.3 }}
               className="flex-1 flex justify-start items-center"
             >
@@ -50,9 +59,9 @@ const Contact = () => {
             <motion.form
               ref={form}
               onSubmit={sendEmail}
-              variants={fadeIn('left', 0.3)}
+              variants={fadeIn("left", 0.3)}
               initial="hidden"
-              whileInView={'show'}
+              whileInView={"show"}
               viewport={{ once: false, amount: 0.3 }}
               className="flex-1 border rounded-2xl flex flex-col gap-y-6 pb-24 p-6 items-start"
             >
@@ -76,6 +85,10 @@ const Contact = () => {
               <button className="btn btn-lg" type="submit" value="Send">
                 Send message
               </button>
+              <ReCAPTCHA
+                sitekey={process.env.REACT_APP_SITE_KEY}
+                ref={captchaRef}
+              />
             </motion.form>
           </div>
         </div>
