@@ -69,26 +69,27 @@ const Contact = () => {
                 className="bg-transparent border-b py-3 outline-none w-full placeholder:text-white focus:border-accent transition-all"
                 type="email"
                 placeholder="Your email"
-                name="user_email"
+                name="email"
               />
               <input
                 className="bg-transparent border-b py-3 outline-none w-full placeholder:text-white focus:border-accent transition-all"
                 type="text"
                 placeholder="Your name"
-                name="user_name"
+                name="name"
               />
               <textarea
                 className="bg-transparent border-b py-12 outline-none w-full placeholder:text-white focus:border-accent transition-all resize-none mb-12"
                 placeholder="Your message"
                 name="message"
               ></textarea>
-              <button className="btn btn-lg" type="submit" value="Send">
-                Send message
-              </button>
               <ReCAPTCHA
                 sitekey={process.env.REACT_APP_SITE_KEY}
                 ref={captchaRef}
+                theme="dark"
               />
+              <button className="btn btn-lg" type="submit" value="Send">
+                Send message
+              </button>
             </motion.form>
           </div>
         </div>
